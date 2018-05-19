@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="SimonKing">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="SimonKing">
+    <meta name="keywords" content="SIMON | SimonKing">
+    <meta name="description" content="">
+    <meta name="Cache-Control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>Nmap使用方法 · SimonKing</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=20180501 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /css/mobile.css?v=20180501 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+        
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >SimonKing.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Nmap使用方法</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>SimonKing.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Nmap使用方法
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2018/05/18</span>
+                
+                <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                    <span class="iconfont-archer">&#xe602;</span>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+                <span class="shareWrapper">
+                    <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                    <span class="shareText">Share</span>
+                    <ul class="shareList">
+                        <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                            <div class="share-qrcode"></div>
+                        </li>
+                        <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                        <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                        <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                        <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                    </ul>
+                </span>
+            </div>
+        
+    </div>
+</div>
+        <script>
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+  
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntroTags = document.getElementsByClassName('post-intro-tags')[0],
+        postIntroMeat = document.getElementsByClassName('post-intro-meta')[0];
+      if (postIntroTags) {
+        postIntroTags.classList.add('post-fade-in');
+      }
+      if (postIntroMeat) {
+        postIntroMeat.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <blockquote>
+<p>由於資料比較多請打開bgm進行觀看更佳</p>
+</blockquote>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="530" height="86" src="//music.163.com/outchain/player?type=2&id=496869422&auto=1&height=66"></iframe>
+
+
+<p>Nmap 又叫做Network Mapper(网络映射器)是一个开源并且为了Linux系统管理员或者网络管理员的万能的工具。Nmap用于浏览网络，执行安全扫描，网络审计以及在远程机器找到开放端口。它可以扫描在线主机，操作系统，滤包器和远程主机打开的端口。</p>
+<p>Nmap 命令 Nmap 命令和例子</p>
+<p>我用两个不同的方面，去覆盖所有NMAP的使用方法，第一部分是正经的Nmap。顺便提一下设备，我会使用两个没有防火墙的服务器，来测试Nmap命令。</p>
+<blockquote>
+<p>192.168.0.100 – server1.tecmint.com<br>192.168.0.101 – server2.tecmint.com</p>
+</blockquote>
+<p>Nmap 命令 用法</p>
+<blockquote>
+<p> nmap [扫描类型] [选项] {目标说明}</p>
+</blockquote>
+<p>怎么在Linux安装NMAP<br>如今大多数的Linux发行版,像 Red Hat, CentOS, Fedoro, Debian 和 Ubuntu 已经在默认安装包管理库Yum或APT中包含Nmap. 这两个工具是用来安装和管理软件包和升级的工具.为了安装Nmap可以使用下列命令。</p>
+<blockquote>
+<p> yum install nmap      [基于Red Hat系统]<br>$ sudo apt-get install nmap [基于Debian系统]</p>
+</blockquote>
+<p>一旦你安装完成最新的nmap应用程序,你可以使用下列来自这篇文章的例子命令。</p>
+<ol>
+<li>使用Hostname和IP地址来扫描系统<br>Nmap工具提供丰富的方法来扫描一个系统。在这个例子中，我将演示一个扫描，用“server2.tecmint.com”的主机名扫描出他的系统所有开放端口，服务和MAC地址。</li>
+</ol>
+<p>使用主机名扫描</p>
+<blockquote>
+<p>[root@server1 ~]# nmap server2.tecmint.com</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-11 15:42 EST<br>Interesting ports on server2.tecmint.com (192.168.0.101):<br>Not shown: 1674 closed ports<br>PORT     STATE SERVICE<br>22/tcp   open  ssh<br>80/tcp   open  http<br>111/tcp  open  rpcbind<br>957/tcp  open  unknown<br>3306/tcp open  mysql<br>8888/tcp open  sun-answerbook<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)</p>
+<p>Nmap finished: 1 IP address (1 host up) scanned in 0.415 seconds<br>You have new mail in /var/spool/mail/root</p>
+</blockquote>
+<p>用IP地址扫描</p>
+<blockquote>
+<p>[root@server1 ~]# nmap 192.168.0.101</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-18 11:04 EST<br>Interesting ports on server2.tecmint.com (192.168.0.101):<br>Not shown: 1674 closed ports<br>PORT     STATE SERVICE<br>22/tcp   open  ssh<br>80/tcp   open  http<br>111/tcp  open  rpcbind<br>958/tcp  open  unknown<br>3306/tcp open  mysql<br>8888/tcp open  sun-answerbook<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)</p>
+<p>Nmap finished: 1 IP address (1 host up) scanned in 0.465 seconds<br>You have new mail in /var/spool/mail/root</p>
+</blockquote>
+<ol start="2">
+<li>使用 “-v” 选项<br>你可以看见下面命令使用了“-v”选项，此选项个给了更多的远程设备的细节。</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap -v server2.tecmint.com</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-11 15:43 EST<br>Initiating ARP Ping Scan against 192.168.0.101 [1 port] at 15:43<br>The ARP Ping Scan took 0.01s to scan 1 total hosts.<br>Initiating SYN Stealth Scan against server2.tecmint.com (192.168.0.101) [1680 ports] at 15:43<br>Discovered open port 22/tcp on 192.168.0.101<br>Discovered open port 80/tcp on 192.168.0.101<br>Discovered open port 8888/tcp on 192.168.0.101<br>Discovered open port 111/tcp on 192.168.0.101<br>Discovered open port 3306/tcp on 192.168.0.101<br>Discovered open port 957/tcp on 192.168.0.101<br>The SYN Stealth Scan took 0.30s to scan 1680 total ports.<br>Host server2.tecmint.com (192.168.0.101) appears to be up … good.<br>Interesting ports on server2.tecmint.com (192.168.0.101):<br>Not shown: 1674 closed ports<br>PORT     STATE SERVICE<br>22/tcp   open  ssh<br>0/tcp   open  http<br>111/tcp  open  rpcbind<br>957/tcp  open  unknown<br>8888/tcp open  sun-answerbook<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)</p>
+<p>Nmap finished: 1 IP address (1 host up) scanned in 0.485 seconds<br>               Raw packets sent: 1681 (73.962KB) | Rcvd: 1681 (77.322KB)</p>
+</blockquote>
+<p>扫描多个主机<br>扫描多个主机只需要简单地以空格隔开输入他们IP地址或者主机名即可</p>
+<blockquote>
+<p>[root@server1 ~]# nmap 192.168.0.101 192.168.0.102 192.168.0.103</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-11 16:06 EST<br>Interesting ports on server2.tecmint.com (192.168.0.101):<br>Not shown: 1674 closed ports<br>PORT     STATE SERVICE<br>22/tcp   open  ssh<br>80/tcp   open  http<br>111/tcp  open  rpcbind<br>957/tcp  open  unknown<br>3306/tcp open  mysql<br>8888/tcp open  sun-answerbook<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)<br>Nmap finished: 3 IP addresses (1 host up) scanned in 0.580 seconds</p>
+</blockquote>
+<ol start="4">
+<li>扫描整个子网<br>通过使用通配符，你可以扫描整个子网或者IP段。</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap 192.168.0.*</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-11 16:11 EST<br>Interesting ports on server1.tecmint.com (192.168.0.100):<br>Not shown: 1677 closed ports<br>PORT    STATE SERVICE<br>22/tcp  open  ssh<br>111/tcp open  rpcbind<br>851/tcp open  unknown</p>
+<p>Interesting ports on server2.tecmint.com (192.168.0.101):<br>Not shown: 1674 closed ports<br>PORT     STATE SERVICE<br>22/tcp   open  ssh<br>80/tcp   open  http<br>111/tcp  open  rpcbind<br>957/tcp  open  unknown<br>3306/tcp open  mysql<br>8888/tcp open  sun-answerbook<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)</p>
+<p>Nmap finished: 256 IP addresses (2 hosts up) scanned in 5.550 seconds<br>You have new mail in /var/spool/mail/root</p>
+</blockquote>
+<p>在上面的输出你可以看见nmap扫描整个子网并且提供了那些主机在这个网络是上线状态的信息。</p>
+<ol start="5">
+<li>使用IP地址最后8字节，扫描多个服务器<br>你可以通过简单的使用IP地址的最后8字节，执行扫描多个IP地址。例如，这里我演示了扫描IP地址192.168.0.101, 192.168.0.102 和 192.168.0.103.</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap 192.168.0.101,102,103</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-11 16:09 EST<br>Interesting ports on server2.tecmint.com (192.168.0.101):<br>Not shown: 1674 closed ports<br>PORT     STATE SERVICE<br>22/tcp   open  ssh<br>80/tcp   open  http<br>111/tcp  open  rpcbind<br>957/tcp  open  unknown<br>3306/tcp open  mysql<br>8888/tcp open  sun-answerbook<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)</p>
+<p>Nmap finished: 3 IP addresses (1 host up) scanned in 0.552 seconds<br>You have new mail in /var/spool/mail/root</p>
+</blockquote>
+<ol start="6">
+<li>扫描来自文件的主机列表<br>如果你有很多的主机需要扫描并且所有主机细节都是写在文件里，你可以直接地告诉NMAP去读这个文件然后执行扫描。来看看怎么做：</li>
+</ol>
+<p>创建一个文本文件叫“nmaptest.txt”并且规定所有需要做扫描的IP地址和服务器的主机名。</p>
+<blockquote>
+<p>[root@server1 ~]# cat &gt; nmaptest.txt</p>
+<p>localhost<br>server2.tecmint.com<br>192.168.0.101</p>
+</blockquote>
+<p>接下来，运行下面命令，使用“iL”选项的nmap命令去扫描所有在文件列出的IP地址。</p>
+<blockquote>
+<p>[root@server1 ~]# nmap -iL nmaptest.txt</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-18 10:58 EST<br>Interesting ports on localhost.localdomain (127.0.0.1):<br>Not shown: 1675 closed ports<br>PORT    STATE SERVICE<br>22/tcp  open  ssh<br>25/tcp  open  smtp<br>111/tcp open  rpcbind<br>631/tcp open  ipp<br>857/tcp open  unknown</p>
+<p>Interesting ports on server2.tecmint.com (192.168.0.101):<br>Not shown: 1674 closed ports<br>PORT     STATE SERVICE<br>22/tcp   open  ssh<br>80/tcp   open  http<br>111/tcp  open  rpcbind<br>958/tcp  open  unknown<br>3306/tcp open  mysql<br>8888/tcp open  sun-answerbook<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)</p>
+<p>Interesting ports on server2.tecmint.com (192.168.0.101):<br>Not shown: 1674 closed ports<br>PORT     STATE SERVICE<br>22/tcp   open  ssh<br>80/tcp   open  http<br>111/tcp  open  rpcbind<br>958/tcp  open  unknown<br>3306/tcp open  mysql<br>8888/tcp open  sun-answerbook<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)</p>
+<p>Nmap finished: 3 IP addresses (3 hosts up) scanned in 2.047 seconds</p>
+</blockquote>
+<ol start="7">
+<li>扫描IP段<br>你可以用Nmap执行扫描指定的IP段。</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap 192.168.0.101-110</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-11 16:09 EST<br>Interesting ports on server2.tecmint.com (192.168.0.101):<br>Not shown: 1674 closed ports<br>PORT     STATE SERVICE<br>22/tcp   open  ssh<br>80/tcp   open  http<br>111/tcp  open  rpcbind<br>957/tcp  open  unknown<br>3306/tcp open  mysql<br>8888/tcp open  sun-answerbook<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)</p>
+<p>Nmap finished: 10 IP addresses (1 host up) scanned in 0.542 seconds</p>
+</blockquote>
+<ol start="8">
+<li>扫描除开某IP的网段<br>You can exclude some hosts while performing a full network scan or when you are scanning with wildcards with “–exclude” option. 当你使用Nmap的通配符扫描整个网络的时候想要排除某几个IP地址，可以使用“–exclude”选项。</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap 192.168.0.* –exclude 192.168.0.100</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-11 16:16 EST<br>Interesting ports on server2.tecmint.com (192.168.0.101):<br>Not shown: 1674 closed ports<br>PORT     STATE SERVICE<br>22/tcp   open  ssh<br>80/tcp   open  http<br>111/tcp  open  rpcbind<br>957/tcp  open  unknown<br>3306/tcp open  mysql<br>8888/tcp open  sun-answerbook<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)</p>
+<p>Nmap finished: 255 IP addresses (1 host up) scanned in 5.313 seconds<br>You have new mail in /var/spool/mail/root</p>
+</blockquote>
+<ol start="9">
+<li>扫描系统信息和路由追踪<br>通过Nmap，你可以探测在远程主机的操作系统以及版本信息。为了可以探测操作系统和版本，脚本扫描和路由追踪，我们可以使用“-A”选项。</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap -A 192.168.0.101</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-11 16:25 EST<br>Interesting ports on server2.tecmint.com (192.168.0.101):<br>Not shown: 1674 closed ports<br>PORT     STATE SERVICE VERSION<br>22/tcp   open  ssh     OpenSSH 4.3 (protocol 2.0)<br>80/tcp   open  http    Apache httpd 2.2.3 ((CentOS))<br>111/tcp  open  rpcbind  2 (rpc #100000)<br>957/tcp  open  status   1 (rpc #100024)<br>3306/tcp open  mysql   MySQL (unauthorized)<br>8888/tcp open  http    lighttpd 1.4.32<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)<br>No exact OS matches for host (If you know what OS is running on it, see <a href="http://www.insecure.org/cgi-bin/nmap-submit.cgi)" target="_blank" rel="noopener">http://www.insecure.org/cgi-bin/nmap-submit.cgi)</a>.<br>TCP/IP fingerprint:<br>SInfo(V=4.11%P=i686-redhat-linux-gnu%D=11/11%Tm=52814B66%O=22%C=1%M=080027)<br>Seq(Class=TR%IPID=Z%TS=1000HZ)<br>T1(Resp=Y%DF=Y%W=16A0%ACK=S++%Flags=AS%Ops=MNNTNW)<br>T2(Resp=N)<br>T3(Resp=Y%DF=Y%W=16A0%ACK=S++%Flags=AS%Ops=MNNTNW)<br>T4(Resp=Y%DF=Y%W=0%ACK=O%Flags=R%Ops=)<br>T5(Resp=Y%DF=Y%W=0%ACK=S++%Flags=AR%Ops=)<br>T6(Resp=Y%DF=Y%W=0%ACK=O%Flags=R%Ops=)<br>T7(Resp=Y%DF=Y%W=0%ACK=S++%Flags=AR%Ops=)<br>PU(Resp=Y%DF=N%TOS=C0%IPLEN=164%RIPTL=148%RID=E%RIPCK=E%UCK=E%ULEN=134%DAT=E)</p>
+<p>Uptime 0.169 days (since Mon Nov 11 12:22:15 2013)</p>
+<p>Nmap finished: 1 IP address (1 host up) scanned in 22.271 seconds<br>You have new mail in /var/spool/mail/root<br>在上面的输出，你可以看见NMAP提供了远程主机正在运行的操作系统的TCP/IP指纹信息、更多的端口细节信息和运行在远程主机的服务。</p>
+</blockquote>
+<ol start="10">
+<li>使用Nmap启动操作系统检测<br>使用“-O”选项和“-osscan-guess”都可以帮助发现操作系统。</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap -O server2.tecmint.com</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-11 17:40 EST<br>Interesting ports on server2.tecmint.com (192.168.0.101):<br>Not shown: 1674 closed ports<br>PORT     STATE SERVICE<br>22/tcp   open  ssh<br>80/tcp   open  http<br>111/tcp  open  rpcbind<br>957/tcp  open  unknown<br>3306/tcp open  mysql<br>8888/tcp open  sun-answerbook<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)<br>No exact OS matches for host (If you know what OS is running on it, see <a href="http://www.insecure.org/cgi-bin/nmap-submit.cgi)" target="_blank" rel="noopener">http://www.insecure.org/cgi-bin/nmap-submit.cgi)</a>.<br>TCP/IP fingerprint:<br>SInfo(V=4.11%P=i686-redhat-linux-gnu%D=11/11%Tm=52815CF4%O=22%C=1%M=080027)<br>TSeq(Class=TR%IPID=Z%TS=1000HZ)<br>T1(Resp=Y%DF=Y%W=16A0%ACK=S++%Flags=AS%Ops=MNNTNW)<br>T2(Resp=N)<br>T3(Resp=Y%DF=Y%W=16A0%ACK=S++%Flags=AS%Ops=MNNTNW)<br>T4(Resp=Y%DF=Y%W=0%ACK=O%Flags=Option -O and -osscan-guess also helps to discover OSR%Ops=)<br>T5(Resp=Y%DF=Y%W=0%ACK=S++%Flags=AR%Ops=)<br>T6(Resp=Y%DF=Y%W=0%ACK=O%Flags=R%Ops=)<br>T7(Resp=Y%DF=Y%W=0%ACK=S++%Flags=AR%Ops=)<br>PU(Resp=Y%DF=N%TOS=C0%IPLEN=164%RIPTL=148%RID=E%RIPCK=E%UCK=E%ULEN=134%DAT=E)</p>
+<p>Uptime 0.221 days (since Mon Nov 11 12:22:16 2013)</p>
+<p>Nmap finished: 1 IP address (1 host up) scanned in 11.064 seconds<br>You have new mail in /var/spool/mail/root</p>
+</blockquote>
+<ol start="11">
+<li>扫描主机来检测防火墙<br>下列命令演示一次扫描，远程机器是否使用任何的滤包器和防火墙。</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap -sA 192.168.0.101</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-11 16:27 EST<br>All 1680 scanned ports on server2.tecmint.com (192.168.0.101) are UNfiltered<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)</p>
+<p>Nmap finished: 1 IP address (1 host up) scanned in 0.382 seconds<br>You have new mail in /var/spool/mail/root</p>
+</blockquote>
+<ol start="12">
+<li>扫描主机来检查它的是否收到防火墙保护<br>可以扫描主机是否受到任何的滤包器和防火墙的保护。</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap -PN 192.168.0.101</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-11 16:30 EST<br>Interesting ports on server2.tecmint.com (192.168.0.101):<br>Not shown: 1674 closed ports<br>PORT     STATE SERVICE<br>22/tcp   open  ssh<br>80/tcp   open  http<br>111/tcp  open  rpcbind<br>957/tcp  open  unknown<br>3306/tcp open  mysql<br>8888/tcp open  sun-answerbook<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)</p>
+<p>Nmap finished: 1 IP address (1 host up) scanned in 0.399 seconds</p>
+</blockquote>
+<ol start="13">
+<li>找出网络中在线的主机<br>随着“-sP”选项的帮助，我们可以轻松地检查出在网络哪个主机是在线，有这个选项支持的nmap跳过端口探测和其他检测。</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap -sP 192.168.0.*</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-18 11:01 EST<br>Host server1.tecmint.com (192.168.0.100) appears to be up.<br>Host server2.tecmint.com (192.168.0.101) appears to be up.<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)<br>Nmap finished: 256 IP addresses (2 hosts up) scanned in 5.109 seconds</p>
+</blockquote>
+<ol start="14">
+<li>执行快速扫描<br>使用“-F”选项可以执行快速扫描去扫描nmap-services文件列出的端口，但不会扫描其他的端口。</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap -F 192.168.0.101</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-11 16:47 EST<br>Interesting ports on server2.tecmint.com (192.168.0.101):<br>Not shown: 1234 closed ports<br>PORT     STATE SERVICE<br>22/tcp   open  ssh<br>80/tcp   open  http<br>111/tcp  open  rpcbind<br>3306/tcp open  mysql<br>8888/tcp open  sun-answerbook<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)</p>
+<p>Nmap finished: 1 IP address (1 host up) scanned in 0.322 seconds</p>
+</blockquote>
+<ol start="15">
+<li>查询Nmap版本<br>使用“-V”选项可以查询在你的机器上运行的nmap命令的版本。</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap -V</p>
+<p>Nmap version 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> )<br>You have new mail in /var/spool/mail/root</p>
+</blockquote>
+<ol start="16">
+<li>连续地扫描端口<br>使用“-r”标记替代随机扫描</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap -r 192.168.0.101</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-11 16:52 EST<br>Interesting ports on server2.tecmint.com (192.168.0.101):<br>Not shown: 1674 closed ports<br>PORT     STATE SERVICE<br>22/tcp   open  ssh<br>80/tcp   open  http<br>111/tcp  open  rpcbind<br>957/tcp  open  unknown<br>3306/tcp open  mysql<br>8888/tcp open  sun-answerbook<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)</p>
+<p>Nmap finished: 1 IP address (1 host up) scanned in 0.363 seconds</p>
+</blockquote>
+<ol start="17">
+<li>打印主机接口和路由<br>使用“–iflist”选项你可以找出主机的接口和路由信息</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap –iflist</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-11 17:07 EST<br><strong><strong><strong><strong><strong><em>**</em></strong></strong></strong></strong></strong>INTERFACES<strong><strong><strong><strong><strong><em>**</em></strong></strong></strong></strong></strong><br>DEV  (SHORT) IP/MASK          TYPE     UP MAC<br>lo   (lo)    127.0.0.1/8      loopback up<br>eth0 (eth0)  192.168.0.100/24 ethernet up 08:00:27:11:C7:89</p>
+<p><strong><strong><strong><strong><strong><strong>**</strong></strong></strong></strong></strong></strong>ROUTES<strong><strong><strong><strong><strong><strong>**</strong></strong></strong></strong></strong></strong><br>DST/MASK      DEV  GATEWAY<br>192.168.0.0/0 eth0<br>169.254.0.0/0 eth0<br>在上面的输出，你可以看见上面的示意图列出了你的系统的接口和他们各自的路由。</p>
+</blockquote>
+<ol start="18">
+<li>扫描特定的端口<br>Nmap有多种多样的选项去发现远程机器的端口。通过“-p”选项，你可以指定你想要扫描的端口，默认情况下Nmap扫描只扫描TCP端口。</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap -p 80 server2.tecmint.com</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-11 17:12 EST<br>Interesting ports on server2.tecmint.com (192.168.0.101):<br>PORT   STATE SERVICE<br>80/tcp open  http<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)</p>
+<p>Nmap finished: 1 IP address (1 host up) sca</p>
+</blockquote>
+<ol start="19">
+<li>扫描一个TCP端口<br>你也可以指定特别的端口类型和标号来扫描。</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap -p T:8888,80 server2.tecmint.com</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-11 17:15 EST<br>Interesting ports on server2.tecmint.com (192.168.0.101):<br>PORT     STATE SERVICE<br>80/tcp   open  http<br>8888/tcp open  sun-answerbook<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)</p>
+<p>Nmap finished: 1 IP address (1 host up) scanned in 0.157 seconds</p>
+</blockquote>
+<ol start="20">
+<li>扫描一个UDP端口</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap -sU 53 server2.tecmint.com</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-11 17:15 EST<br>Interesting ports on server2.tecmint.com (192.168.0.101):<br>PORT     STATE SERVICE<br>53/udp   open  http<br>8888/udp open  sun-answerbook<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)</p>
+<p>Nmap finished: 1 IP address (1 host up) scanned in 0.157 seconds</p>
+</blockquote>
+<ol start="21">
+<li>扫描多个指定端口<br>使用“-p”选项，你也可以指定多个端口扫描。</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap -p 80,443 192.168.0.101</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-18 10:56 EST<br>Interesting ports on server2.tecmint.com (192.168.0.101):<br>PORT    STATE  SERVICE<br>80/tcp  open   http<br>443/tcp closed https<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)</p>
+<p>Nmap finished: 1 IP address (1 host up) scanned in 0.190 seconds</p>
+</blockquote>
+<ol start="22">
+<li>扫描一段的端口<br>你可以扫描一段范围表达的端口。</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]#  nmap -p 80-160 192.168.0.101</p>
+</blockquote>
+<ol start="23">
+<li>找到主机服务版本号<br>使用“-sV”选项，我们可以查询出在远程服务器的服务版本。</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap -sV 192.168.0.101</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-11 17:48 EST<br>Interesting ports on server2.tecmint.com (192.168.0.101):<br>Not shown: 1674 closed ports<br>PORT     STATE SERVICE VERSION<br>22/tcp   open  ssh     OpenSSH 4.3 (protocol 2.0)<br>80/tcp   open  http    Apache httpd 2.2.3 ((CentOS))<br>111/tcp  open  rpcbind  2 (rpc #100000)<br>957/tcp  open  status   1 (rpc #100024)<br>3306/tcp open  mysql   MySQL (unauthorized)<br>8888/tcp open  http    lighttpd 1.4.32<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)</p>
+<p>Nmap finished: 1 IP address (1 host up) scanned in 12.624 seconds</p>
+</blockquote>
+<ol start="24">
+<li>扫描远程主机是使用TCP ACK还是TCP Syn<br>有时，滤包器防火墙阻止 ICMP的ping请求，在那种情况下，我们可以使用 TCP ACK和TCP Syn方法来扫描远程主机。</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap -PS 192.168.0.101</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-11 17:51 EST<br>Interesting ports on server2.tecmint.com (192.168.0.101):<br>Not shown: 1674 closed ports<br>PORT     STATE SERVICE<br>22/tcp   open  ssh<br>80/tcp   open  http<br>111/tcp  open  rpcbind<br>957/tcp  open  unknown<br>3306/tcp open  mysql<br>8888/tcp open  sun-answerbook<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)</p>
+<p>Nmap finished: 1 IP address (1 host up) scanned in 0.360 seconds<br>You have new mail in /var/spool/mail/root</p>
+</blockquote>
+<ol start="25">
+<li>用TCP ACK扫描远程主机扫描特定端口</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap -PA -p 22,80 192.168.0.101</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-11 18:02 EST<br>Interesting ports on server2.tecmint.com (192.168.0.101):<br>PORT   STATE SERVICE<br>22/tcp open  ssh<br>80/tcp open  http<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)</p>
+<p>Nmap finished: 1 IP address (1 host up) scanned in 0.166 seconds<br>You have new mail in /var/spool/mail/root</p>
+</blockquote>
+<ol start="26">
+<li>用TCP Syn扫描远程主机扫描特定端口</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap -PS -p 22,80 192.168.0.101</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-11 18:08 EST<br>Interesting ports on server2.tecmint.com (192.168.0.101):<br>PORT   STATE SERVICE<br>22/tcp open  ssh<br>80/tcp open  http<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)</p>
+<p>Nmap finished: 1 IP address (1 host up) scanned in 0.165 seconds<br>You have new mail in /var/spool/mail/root</p>
+</blockquote>
+<ol start="27">
+<li>执行一个秘密的扫描</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap -sS 192.168.0.101</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-11 18:10 EST<br>Interesting ports on server2.tecmint.com (192.168.0.101):<br>Not shown: 1674 closed ports<br>PORT     STATE SERVICE<br>22/tcp   open  ssh<br>80/tcp   open  http<br>111/tcp  open  rpcbind<br>957/tcp  open  unknown<br>3306/tcp open  mysql<br>8888/tcp open  sun-answerbook<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)</p>
+<p>Nmap finished: 1 IP address (1 host up) scanned in 0.383 seconds<br>You have new mail in /var/spool/mail/root</p>
+</blockquote>
+<ol start="28">
+<li>用TCP Syn检查所有通用的端口</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap -sT 192.168.0.101</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-11 18:12 EST<br>Interesting ports on server2.tecmint.com (192.168.0.101):<br>Not shown: 1674 closed ports<br>PORT     STATE SERVICE<br>22/tcp   open  ssh<br>80/tcp   open  http<br>111/tcp  open  rpcbind<br>957/tcp  open  unknown<br>3306/tcp open  mysql<br>8888/tcp open  sun-answerbook<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)</p>
+<p>Nmap finished: 1 IP address (1 host up) scanned in 0.406 seconds<br>You have new mail in /var/spool/mail/root</p>
+</blockquote>
+<ol start="29">
+<li>执行一个TCP 空扫描来欺骗防火墙</li>
+</ol>
+<blockquote>
+<p>[root@server1 ~]# nmap -sN 192.168.0.101</p>
+<p>Starting Nmap 4.11 ( <a href="http://www.insecure.org/nmap/" target="_blank" rel="noopener">http://www.insecure.org/nmap/</a> ) at 2013-11-11 19:01 EST<br>Interesting ports on server2.tecmint.com (192.168.0.101):<br>Not shown: 1674 closed ports<br>PORT     STATE         SERVICE<br>22/tcp   open|filtered ssh<br>80/tcp   open|filtered http<br>111/tcp  open|filtered rpcbind<br>957/tcp  open|filtered unknown<br>3306/tcp open|filtered mysql<br>8888/tcp open|filtered sun-answerbook<br>MAC Address: 08:00:27:D9:8E:D7 (Cadmus Computer Systems)</p>
+<p>Nmap finished: 1 IP address (1 host up) scanned in 1.584 seconds<br>You have new mail in /var/spool/mail/root</p>
+</blockquote>
+<p>这就是现在的NMAP，我将会在这一系列的第二部分提出更多创造性的NMAP选项.直到那时，请继续关注我们，别忘了分享你的宝贵的评价。</p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者: <a href="https://luckinger.github.io">SimonKing</a>
+            <p>原文链接: <a href="https://luckinger.github.io/2018/05/18/Nmap使用方法/">https://luckinger.github.io/2018/05/18/Nmap使用方法/</a>
+            <p>发表日期: <a href="https://luckinger.github.io/2018/05/18/Nmap使用方法/">May 18th 2018, 11:29:04</a>
+            <p>版权声明: 本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/05/18/MAC/" title= Vmware fusion 虛擬機 Ubuntu 共享文件 For MAC >
+                    <div class="prevTitle">Vmware fusion 虛擬機 Ubuntu 共享文件 For MAC</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+    <div id="lv-container" data-id="city" data-uid= MTAyMC8zNjU3MS8xMzEwNg==>
+        <script type="text/javascript">
+            (function (d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+                if (typeof LivereTower === 'function') { return; }
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:SimonZeroKing@gmail.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/Luckinger" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/wechat.png" />
+                </span>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer qq" title=qq>
+                  
+                  <img class="profile-qr" src="/assets/qq.jpg" />
+                </span>
+            
+        
+    
+        
+            
+                <a href="//weibo.com/5992503682/profile?topnav=1&wvr=6&is_all=1" class="iconfont-archer weibo" target="_blank" title=weibo></a>
+            
+        
+    
+        
+            
+                <a href="//www.zhihu.com/people/zerosimonking" class="iconfont-archer zhihu" target="_blank" title=zhihu></a>
+            
+        
+    
+        
+    
+        
+            
+                <a href="//www.facebook.com/profile.php?id=100014996772880" class="iconfont-archer facebook" target="_blank" title=facebook></a>
+            
+        
+    
+        
+            
+                <a href="//twitter.com/ZeroSimonKing" class="iconfont-archer twitter" target="_blank" title=twitter></a>
+            
+        
+    
+        
+            
+                <a href="//www.instagram.com/zerosimonking/" class="iconfont-archer instagram" target="_blank" title=instagram></a>
+            
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//space.bilibili.com/60632222/#/" class="iconfont-archer bilibili" target="_blank" title=bilibili></a>
+            
+        
+    
+        
+            
+                <a href="//www.linkedin.com/in/king-simon-762b94162/" class="iconfont-archer linkedin" target="_blank" title=linkedin></a>
+            
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+        <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 5 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/Nmap使用方法/" >Nmap使用方法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/MAC/" >Vmware fusion 虛擬機 Ubuntu 共享文件 For MAC</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/Ubuntu常用指令/" >Ubuntu常用指令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/Ubuntu常用快捷鍵/" >Ubuntu常用快捷鍵</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/23</span><a class="archive-post-title" href= "/2018/04/23/关于博主/" >关于博主的一些信息</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="日常"><span class="iconfont-archer">&#xe606;</span>日常</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="日常"><span class="iconfont-archer">&#xe60a;</span>日常</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: '/',
+        author: 'SimonKing'
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+    
+    </body>
+</html>
+
+
