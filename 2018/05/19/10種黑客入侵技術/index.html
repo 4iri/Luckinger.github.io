@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>[404] · SimonKing個人博客 —— 我所行之事，均為絕對正義。</title>
+    <title>10種黑客入侵技術 · SimonKing個人博客 —— 我所行之事，均為絕對正義。</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -70,6 +70,8 @@
 
     <link rel="preload" href= /css/style.css?v=20180501 as="style" onload="this.onload=null;this.rel='stylesheet'" />
     <link rel="stylesheet" href= /css/mobile.css?v=20180501 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
         
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -212,7 +214,7 @@
 </head>
 
     
-        <body class="four-zero-four-body">
+        <body class="post-body">
     
     
 <header class="header">
@@ -220,6 +222,15 @@
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >SimonKing.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">10種黑客入侵技術</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>SimonKing.</a>
 </header>
@@ -233,32 +244,67 @@
 
 
 
+height:50vh;
+
 >
     
     <!-- 主页  -->
     
     
-    <!-- about页 -->
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/404-bg.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            [404]
-            <!-- about -->
+            10種黑客入侵技術
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
-                進入了一個奇怪的空間:&#41;
+            
+            <!-- 404 -->
             
         </p>
         <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "滲透">滲透</a>
+    
+</div>
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2018/05/19</span>
+                
+                <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                    <span class="iconfont-archer">&#xe602;</span>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+                <span class="shareWrapper">
+                    <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                    <span class="shareText">Share</span>
+                    <ul class="shareList">
+                        <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                            <div class="share-qrcode"></div>
+                        </li>
+                        <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                        <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                        <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                        <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                    </ul>
+                </span>
+            </div>
         
     </div>
 </div>
@@ -362,8 +408,120 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <!-- 不可以删除，否则会调用post的layout  -->
+            <main class="main post-page">
+    <article class="article-entry">
+        <blockquote>
+<p>由於資料比較多請打開bgm進行觀看更佳</p>
+</blockquote>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="530" height="86" src="//music.163.com/outchain/player?type=2&id=496869422&auto=1&height=66"></iframe>
 
+<blockquote>
+<p>1.诱导转向</p>
+</blockquote>
+<p>  使用诱导转向入侵技术，黑客运行用户认为真实可信的恶意程序。在电脑上安装这类恶意程序后，黑客未经授权便可访问用户电脑。打个比方，一个商店做广告说他们正在出售许多价钱特别便宜的货品。可是当顾客来买的时候，他们就说那样东西已经卖完，他们建议顾客买别的，价钱很高的东西。</p>
+<blockquote>
+<p>2.盗取Cookie</p>
+</blockquote>
+<p>  当第三方复制非加密的会话数据时会发生Cookie盗取，用来冒充真实用户。用户通过未经保护或公共Wi-Fi网络访问信任站点时通常会发生Cookie盗取。虽然特定网站的用户名和密码会加密，但往返的会话数据（cookie）却没有。</p>
+<blockquote>
+<p>3.点击劫持（ClickJacking）攻击</p>
+</blockquote>
+<p>  点击劫持，clickjacking，也被称为UI-覆盖攻击。这个词首次出现在2008年，是由互联网安全专家罗伯特·汉森和耶利米·格劳斯曼首创的。它是通过覆盖不可见的框架误导受害者点击。虽然受害者点击的是他所看到的网页，但其实他所点击的是被黑客精心构建的另一个置于原网页上面的透明页面。这种攻击利用了HTML中&lt; iframe &gt;标签的透明属性。</p>
+<blockquote>
+<ol start="4">
+<li>病毒，木马</li>
+</ol>
+</blockquote>
+<p>  在电脑方面，木马是用来入侵电脑的恶意电脑程序，通过误导用户达到真实目的。 “木马” 这个词源于古希腊木马故事，当时木马用来帮助希腊军队暗中入侵特洛伊城。</p>
+<blockquote>
+<ol start="5">
+<li>网络钓鱼</li>
+</ol>
+</blockquote>
+<p>  网络钓鱼式一种欺诈形式，攻击者假扮成知名实体或个人通过电子邮件、即时信息或其他沟通渠道试图获取信息，比如登录凭证或账号信息。最典型的网络钓鱼攻击将收信人引诱到一个通过精心设计与目标组织的网站非常相似的钓鱼网站上，并获取收信人在此网站上输入的个人敏感信息，通常这个攻击过程不会让受害者警觉。它是“社会工程攻击”的一种形式。网络钓鱼是一种在线身份盗窃方式。</p>
+<blockquote>
+<ol start="6">
+<li>窃听（被动式攻击）</li>
+</ol>
+</blockquote>
+<p>  被动式攻击是一种网络攻击，通过监控系统和扫描开放端口和漏洞实施攻击。目的仅仅是为了获取目标信息，并且不会改动目标数据。被动式攻击包括主动侦察和被动侦察。被动侦察中，入侵者在不交互的情况下，通过抓取会话等方法监控系统漏洞。</p>
+<blockquote>
+<ol start="7">
+<li>虚假无线接入点（WAP）</li>
+</ol>
+</blockquote>
+<p>   虚假WAP已成为当今世界最容易完成攻击的策略，任何人使用一些简单的软件及一张无线网卡就可以将其电脑伪装成可用的WAP，然后将这个WAP连接到一个本地中现实、合法的WAP。一旦受害者连接假WAP，黑客便可以访问受害者的数据。</p>
+<blockquote>
+<ol start="8">
+<li>水坑式攻击</li>
+</ol>
+</blockquote>
+<p>  “水坑式攻击”，是指黑客通过分析被攻击者的网络活动规律，寻找被攻击者经常访问的网站的弱点，先攻下该网站并植入攻击代码，等待被攻击者来访时实施攻击。这种攻击行为类似《动物世界》纪录片中的一种情节：捕食者埋伏在水里或者水坑周围，等其他动物前来喝水时发起攻击猎取食物。水坑攻击已经成为APT攻击的一种常用手段。</p>
+<blockquote>
+<ol start="9">
+<li>拒绝服务（DoS\DDoS）</li>
+</ol>
+</blockquote>
+<p>  DDoS是一种DOS攻击，DDos攻击指借助于客户/服务器技术，将多个计算机联合起来作为攻击平台，对一个或多个目标发动DDoS攻击，从而成倍地提高拒绝服务攻击的威力。通常，攻击者使用一个偷窃帐号将DDoS主控程序安装在一个计算机上，在一个设定的时间主控程序将与大量代理程序通讯，代理程序已经被安装在网络上的许多计算机上。代理程序收到指令时就发动攻击。利用客户/服务器技术，主控程序能在几秒钟内激活成百上千次代理程序的运行。</p>
+<blockquote>
+<p>10.键盘记录器</p>
+</blockquote>
+<p>  键盘记录器是一种监控软件（被认为是软件或间谍软件），可以记录日志文件的每个击键，通常是加密的。键盘记录器可以记录即时信息、电子邮件以及任何使用键盘键入的信息。</p>
+<p> PS：最后说一下我发了很多入门跟新手的学习方法，也比较简单容易理解，所以大家喜欢这门技术的话就合法的追求学习吧，很多人问我说学这门技术需要花多久时间，我觉得吧学这门技术跟智慧无关，最主要的还是兴趣！好了今天就讲到这里！</p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者: <a href="https://luckinger.github.io">SimonKing</a>
+            <p>原文链接: <a href="https://luckinger.github.io/2018/05/19/10種黑客入侵技術/">https://luckinger.github.io/2018/05/19/10種黑客入侵技術/</a>
+            <p>发表日期: <a href="https://luckinger.github.io/2018/05/19/10種黑客入侵技術/">五月 19日 2018, 11:01:34</a>
+            <p>版权声明: 本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/05/19/測試圖片/" title= 關於打賞 >
+                    <div class="prevTitle">關於打賞</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+    <div id="lv-container" data-id="city" data-uid= MTAyMC8zNjU3MS8xMzEwNg==>
+        <script type="text/javascript">
+            (function (d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+                if (typeof LivereTower === 'function') { return; }
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
             <!-- profile -->
             
         </div>
@@ -476,6 +634,24 @@
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -690,6 +866,8 @@ jsonContent:
         
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
     
     </body>
 </html>
