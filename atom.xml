@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://luckinger.github.io/"/>
-  <updated>2018-06-01T08:28:53.360Z</updated>
+  <updated>2018-06-01T10:03:51.535Z</updated>
   <id>https://luckinger.github.io/</id>
   
   <author>
@@ -17,27 +17,27 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>live2d</title>
-    <link href="https://luckinger.github.io/2018/06/01/live2d/"/>
-    <id>https://luckinger.github.io/2018/06/01/live2d/</id>
-    <published>2018-06-01T08:25:42.000Z</published>
-    <updated>2018-06-01T08:28:53.360Z</updated>
+    <title>日常簽到</title>
+    <link href="https://luckinger.github.io/2018/06/01/%E6%97%A5%E5%B8%B8%E7%B0%BD%E5%88%B0/"/>
+    <id>https://luckinger.github.io/2018/06/01/日常簽到/</id>
+    <published>2018-06-01T10:00:48.000Z</published>
+    <updated>2018-06-01T10:03:51.535Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" href="/live2d/css/live2d.css"><div id="landlord">    <div class="message" style="opacity:0"></div>    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>    <div class="hide-button">隐藏</div></div><script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script><script type="text/javascript">    var message_Path = '/live2d/'    var home_Path = 'https://kurumi.ink/'</script><script type="text/javascript" src="/live2d/js/live2d.js"></script><script type="text/javascript" src="/live2d/js/message.js"></script><script type="text/javascript">    loadlive2d("live2d", "/live2d/model/tia/model.json");</script>]]></content>
+    <content type="html"><![CDATA[<p>最近在學習python沒有時間更新博客還請諒解。。</p><p>但是我會每天簽到的呢！！！！</p>]]></content>
     
     <summary type="html">
     
       
       
-        
-&lt;link rel=&quot;stylesheet&quot; href=&quot;/live2d/css/live2d.css&quot;&gt;
-&lt;div id=&quot;landlord&quot;&gt;
-    &lt;div class=&quot;message&quot; style=&quot;opacity:0&quot;&gt;&lt;/div&gt;
-    &lt;canvas id=
+        &lt;p&gt;最近在學習python沒有時間更新博客還請諒解。。&lt;/p&gt;
+&lt;p&gt;但是我會每天簽到的呢！！！！&lt;/p&gt;
+
       
     
     </summary>
     
+    
+      <category term="簽到" scheme="https://luckinger.github.io/tags/%E7%B0%BD%E5%88%B0/"/>
     
   </entry>
   
