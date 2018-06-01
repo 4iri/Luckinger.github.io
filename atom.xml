@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://luckinger.github.io/"/>
-  <updated>2018-05-24T13:30:15.692Z</updated>
+  <updated>2018-06-01T08:28:53.360Z</updated>
   <id>https://luckinger.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>live2d</title>
+    <link href="https://luckinger.github.io/2018/06/01/live2d/"/>
+    <id>https://luckinger.github.io/2018/06/01/live2d/</id>
+    <published>2018-06-01T08:25:42.000Z</published>
+    <updated>2018-06-01T08:28:53.360Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" href="/live2d/css/live2d.css"><div id="landlord">    <div class="message" style="opacity:0"></div>    <canvas id="live2d" width="280" height="250" class="live2d"></canvas>    <div class="hide-button">隐藏</div></div><script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script><script type="text/javascript">    var message_Path = '/live2d/'    var home_Path = 'https://kurumi.ink/'</script><script type="text/javascript" src="/live2d/js/live2d.js"></script><script type="text/javascript" src="/live2d/js/message.js"></script><script type="text/javascript">    loadlive2d("live2d", "/live2d/model/tia/model.json");</script>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/live2d/css/live2d.css&quot;&gt;
+&lt;div id=&quot;landlord&quot;&gt;
+    &lt;div class=&quot;message&quot; style=&quot;opacity:0&quot;&gt;&lt;/div&gt;
+    &lt;canvas id=
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>超級便宜的美國OpenVZ</title>

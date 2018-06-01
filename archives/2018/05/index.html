@@ -783,7 +783,6 @@ Ubuntu常用快捷键总结桌面常用快捷键Alt + F1：聚焦到桌面左侧
     <!-- 不蒜子  -->
     
 </footer>
-
     </div>
     <!-- toc -->
     
@@ -875,7 +874,38 @@ Ubuntu常用快捷键总结桌面常用快捷键Alt + F1：聚焦到桌面左侧
     
     
     
-    <div class="total-archive"> Total : 10 </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 11 </div>
     
     <div class="post-archive">
     
@@ -884,6 +914,11 @@ Ubuntu常用快捷键总结桌面常用快捷键Alt + F1：聚焦到桌面左侧
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/2018/06/01/live2d/" >live2d</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -940,13 +975,13 @@ Ubuntu常用快捷键总结桌面常用快捷键Alt + F1：聚焦到桌面左侧
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
-    
         <span class="sidebar-tag-name" data-tags="滲透"><span class="iconfont-archer">&#xe606;</span>滲透</span>
     
-        <span class="sidebar-tag-name" data-tags="服務器"><span class="iconfont-archer">&#xe606;</span>服務器</span>
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
         <span class="sidebar-tag-name" data-tags="日常"><span class="iconfont-archer">&#xe606;</span>日常</span>
+    
+        <span class="sidebar-tag-name" data-tags="服務器"><span class="iconfont-archer">&#xe606;</span>服務器</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -1016,6 +1051,22 @@ jsonContent:
     <!-- async load share.js -->
     
     <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":250,"bottom":0},"mobile":{"show":true}});</script></body>
+    <link rel="stylesheet" href="/live2d/css/live2d.css" />
+    <div id="landlord">
+        <div class="message" style="opacity:0"></div>
+        <canvas id="live2d" width="280" height="550" class="live2d"></canvas>
+        <div class="hide-button">隐藏</div>
+    </div>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        var message_Path = '/live2d/'
+        var home_Path = 'https://kurumi.ink/'
+    </script>
+    <script type="text/javascript" src="/live2d/js/live2d.js"></script>
+    <script type="text/javascript" src="/live2d/js/message.js"></script>
+    <script type="text/javascript">
+        loadlive2d("live2d", "/live2d/model/13/13.json");
+    </script>
 </html>
 
 
