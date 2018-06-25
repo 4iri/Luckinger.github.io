@@ -4,21 +4,6 @@
 
     
   <url>
-    <loc>https://luckinger.github.io/2018/06/24/fuzhuo-night/</loc>
-    <lastmod>2018-06-24T14:14:39.951Z</lastmod>
-    <data>
-        <display>
-        <title>fuzhuo-night</title>
-        <pubTime>2018-06-24T14:08:25.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://luckinger.github.io/2018/06/12/%E7%AD%BE%E5%88%B0%E4%B8%80/</loc>
     <lastmod>2018-06-12T14:08:21.692Z</lastmod>
     <data>
@@ -122,6 +107,24 @@
 
     
   <url>
+    <loc>https://luckinger.github.io/2018/05/19/%E6%B8%AC%E8%A9%A6%E5%9C%96%E7%89%87/</loc>
+    <lastmod>2018-05-20T04:28:08.584Z</lastmod>
+    <data>
+        <display>
+        <title>關於打賞</title>
+        <pubTime>2018-05-20T04:06:20.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="日常" url="https://luckinger.github.io/categories/%E6%97%A5%E5%B8%B8/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://luckinger.github.io/2018/04/23/%E5%85%B3%E4%BA%8E%E5%8D%9A%E4%B8%BB/</loc>
     <lastmod>2018-05-20T04:28:08.584Z</lastmod>
     <data>
@@ -141,24 +144,6 @@
     </url>
 
     
-  <url>
-    <loc>https://luckinger.github.io/2018/05/19/%E6%B8%AC%E8%A9%A6%E5%9C%96%E7%89%87/</loc>
-    <lastmod>2018-05-20T04:28:08.584Z</lastmod>
-    <data>
-        <display>
-        <title>關於打賞</title>
-        <pubTime>2018-05-20T04:06:20.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="日常" url="https://luckinger.github.io/categories/%E6%97%A5%E5%B8%B8/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
     
     
   <url>
@@ -168,6 +153,23 @@
         <display>
         <title>Ubuntu下載與安裝</title>
         <pubTime>2018-05-19T13:54:58.000Z</pubTime>
+        
+        <tag>Linux</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://luckinger.github.io/2018/05/18/Ubuntu%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/</loc>
+    <lastmod>2018-05-19T04:34:21.004Z</lastmod>
+    <data>
+        <display>
+        <title>Ubuntu常用指令</title>
+        <pubTime>2018-05-18T16:23:57.000Z</pubTime>
         
         <tag>Linux</tag>
          
@@ -202,23 +204,6 @@
         <display>
         <title>Vmware fusion 虛擬機 Ubuntu 共享文件 For MAC</title>
         <pubTime>2018-05-19T03:10:38.000Z</pubTime>
-        
-        <tag>Linux</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://luckinger.github.io/2018/05/18/Ubuntu%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/</loc>
-    <lastmod>2018-05-19T04:34:21.004Z</lastmod>
-    <data>
-        <display>
-        <title>Ubuntu常用指令</title>
-        <pubTime>2018-05-18T16:23:57.000Z</pubTime>
         
         <tag>Linux</tag>
          
